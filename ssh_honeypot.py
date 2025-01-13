@@ -20,4 +20,19 @@ creds_logger.addHandler(creds_handler)
 
 # Emulated Shell
 def emulated_shell(channel, client_ip):
-    channel.send(b'corporate-jumpbox2$')
+    channel.send(b'corporate-jumpbox2$ ')
+    command = b""
+    while True:
+        char = channel.recv(1)
+        channel.send(char)
+        if not char:
+            channel.close()
+
+        command += char
+
+        if char == b'\r':
+            if command.strip() == b'exit':
+                response = b'\n Goodbye!\n'
+                channel.close()
+
+
