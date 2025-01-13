@@ -51,4 +51,14 @@ def emulated_shell(channel, client_ip):
         command = b""
 
 
+# SSH server and sockets
+
+class Server(paramiko.ServerInterface):
+
+    def __init__(self, client_ip, input_username=None, input_password=None):
+        self.client_ip = client_ip
+        self.input_username = input_username
+        self.input_password = input_password
+
+
 
